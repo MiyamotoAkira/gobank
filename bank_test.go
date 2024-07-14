@@ -17,8 +17,9 @@ func Test_SingleDeposit(t *testing.T) {
 
 	account.deposit(100)
 	actual := account.printStatement()
-	expected := `Date       || Amount || Balance
-2024-07-14 || 100   || 100`
+	expected := "" +
+		"Date       || Amount || Balance\n" +
+		"2024-07-14 || 100    || 100"
 
 	assert.Equal(t, expected, actual, "Deposit should be there")
 }

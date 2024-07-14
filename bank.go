@@ -25,7 +25,7 @@ func (account *StandardAccount) printStatement() string {
 	result := "Date       || Amount || Balance"
 
 	for _, statement := range account.statements {
-		result += "\n" + statement.Date + " || " + strconv.Itoa(statement.Amount) + "   || " + strconv.Itoa(statement.Balance)
+		result += "\n" + statement.Date + " || " + strconv.Itoa(statement.Amount) + "    || " + strconv.Itoa(statement.Balance)
 	}
 
 	return result

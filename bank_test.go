@@ -71,11 +71,8 @@ func Test_DepositsOnDifferentDates(t *testing.T) {
 	}
 	account := StandardAccount{TodaysDateProvider: mockedDateProvider}
 
-	//Mock date to 2012-01-10
 	account.deposit(1000)
-	//Mock date to 2012-01-13
 	account.deposit(2000)
-	//Mock date to 2012-01-14
 	account.withdraw(500)
 
 	expected := "" +

@@ -37,3 +37,17 @@ func Test_TwoDeposit(t *testing.T) {
 
 	assert.Equal(t, expected, actual, "Deposit should be there")
 }
+
+func Test_DepositThenWithdrawal(t *testing.T) {
+	account := new(StandardAccount)
+
+	account.deposit(200)
+	account.withdraw(100)
+	actual := account.printStatement()
+	expected := "" +
+		"Date       || Amount || Balance\n" +
+		"2024-07-14 || -100    || 100\n" +
+		"2024-07-14 || 200    || 200"
+
+	assert.Equal(t, expected, actual, "Deposit should be there")
+}

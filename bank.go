@@ -2,7 +2,6 @@ package bank
 
 import (
 	"strconv"
-	"time"
 )
 
 type Account interface {
@@ -12,27 +11,32 @@ type Account interface {
 }
 
 type Statement struct {
-	Date    string
+	Date    Date
 	Amount  int
 	Balance int
 }
 
 type StandardAccount struct {
-	statements []Statement
+	statements         []Statement
+	TodaysDateProvider TodaysDateProvider
+}
+
+func NewStandardAccount() *StandardAccount {
+	return &StandardAccount{TodaysDateProvider: TodaysSystemDateProvider}
 }
 
 func (account *StandardAccount) printStatement() string {
 	result := "Date       || Amount || Balance"
 
 	for _, statement := range account.statements {
-		result += "\n" + statement.Date + " || " + strconv.Itoa(statement.Amount) + "    || " + strconv.Itoa(statement.Balance)
+		result += "\n" + string(statement.Date) + " || " + strconv.Itoa(statement.Amount) + "    || " + strconv.Itoa(statement.Balance)
 	}
 
 	return result
 }
 
 func (account *StandardAccount) deposit(amount int) {
-	date := time.Now().Format("2006-01-02")
+	date := account.TodaysDateProvider()
 
 	current_balance := 0
 	if len(account.statements) > 0 {
@@ -43,7 +47,7 @@ func (account *StandardAccount) deposit(amount int) {
 }
 
 func (account *StandardAccount) withdraw(amount int) {
-	date := time.Now().Format("2006-01-02")
+	date := account.TodaysDateProvider()
 
 	current_balance := 0
 	if len(account.statements) > 0 {

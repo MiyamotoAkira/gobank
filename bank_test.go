@@ -5,15 +5,19 @@ import (
 	"testing"
 )
 
+func MockedDateProvider() Date {
+	return "2024-07-14"
+}
+
 func Test_EmptyPrint(t *testing.T) {
-	account := new(StandardAccount)
+	account := StandardAccount{TodaysDateProvider: MockedDateProvider}
 	actual := account.printStatement()
 	expected := "Date       || Amount || Balance"
 	assert.Equal(t, expected, actual, "The headers are not the same")
 }
 
 func Test_SingleDeposit(t *testing.T) {
-	account := new(StandardAccount)
+	account := StandardAccount{TodaysDateProvider: MockedDateProvider}
 
 	account.deposit(100)
 	actual := account.printStatement()
@@ -25,7 +29,7 @@ func Test_SingleDeposit(t *testing.T) {
 }
 
 func Test_TwoDeposit(t *testing.T) {
-	account := new(StandardAccount)
+	account := StandardAccount{TodaysDateProvider: MockedDateProvider}
 
 	account.deposit(100)
 	account.deposit(200)
@@ -39,7 +43,7 @@ func Test_TwoDeposit(t *testing.T) {
 }
 
 func Test_DepositThenWithdrawal(t *testing.T) {
-	account := new(StandardAccount)
+	account := StandardAccount{TodaysDateProvider: MockedDateProvider}
 
 	account.deposit(200)
 	account.withdraw(100)

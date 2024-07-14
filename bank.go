@@ -38,21 +38,21 @@ func (account *StandardAccount) printStatement() string {
 func (account *StandardAccount) deposit(amount int) {
 	date := account.TodaysDateProvider()
 
-	current_balance := 0
+	currentBalance := 0
 	if len(account.statements) > 0 {
-		current_balance = account.statements[0].Balance
+		currentBalance = account.statements[0].Balance
 	}
-	statement := Statement{date, amount, amount + current_balance}
+	statement := Statement{date, amount, amount + currentBalance}
 	account.statements = append([]Statement{statement}, account.statements...)
 }
 
 func (account *StandardAccount) withdraw(amount int) {
 	date := account.TodaysDateProvider()
 
-	current_balance := 0
+	currentBalance := 0
 	if len(account.statements) > 0 {
-		current_balance = account.statements[0].Balance
+		currentBalance = account.statements[0].Balance
 	}
-	statement := Statement{date, -amount, current_balance - amount}
+	statement := Statement{date, -amount, currentBalance - amount}
 	account.statements = append([]Statement{statement}, account.statements...)
 }

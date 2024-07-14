@@ -57,22 +57,17 @@ func Test_DepositThenWithdrawal(t *testing.T) {
 }
 
 func Test_DepositsOnDifferentDates(t *testing.T) {
-	i := 0
+	mockedDate := Date("")
 	mockedDateProvider := func() Date {
-		result := Date("2012-01-10")
-		if i == 1 {
-			result = "2012-01-13"
-		} else if i == 2 {
-			result = "2012-01-14"
-		}
-
-		i++
-		return result
+		return mockedDate
 	}
 	account := StandardAccount{TodaysDateProvider: mockedDateProvider}
 
+	mockedDate = "2012-01-10"
 	account.deposit(1000)
+	mockedDate = "2012-01-13"
 	account.deposit(2000)
+	mockedDate = "2012-01-14"
 	account.withdraw(500)
 
 	expected := "" +

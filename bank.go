@@ -34,5 +34,10 @@ func (account *StandardAccount) printStatement() string {
 func (account *StandardAccount) deposit(amount int) {
 	date := time.Now().Format("2006-01-02")
 
-	account.statements = append(account.statements, Statement{date, amount, amount})
+	current_balance := 0
+	if len(account.statements) > 0 {
+		current_balance = account.statements[0].Balance
+	}
+	statement := Statement{date, amount, amount + current_balance}
+	account.statements = append([]Statement{statement}, account.statements...)
 }
